@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+        <title> Рецепти десертів</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">Sweet Treat</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Пошук рецепту...">
+            </div>
+        </header>
+        <nav class="filters">
+            <button class="tag">Всі</button>
+            <button class="tag">Торти</button>
+            <button class="tag">Без цукру</button>
+            <button class="tag">Печиво</button>
+        </nav>
+        <main class="recipe-grid">
+            <article class="card" onclick="openModal()">
+                <div class="card-image-placeholder">Фото</div>
+                <h3 class="card-title">Ягідний Чізкейк</h3>
+                <button class="btn-primary">Дивитись рецепт</button>
+            </article>
+        </main>
+        <div id="recipeModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <div class="modal-image-placeholder">Велике фото десерту</div>
+                <h2>Ягідний Чізкейк</h2>
+                <p>Сирковий десерт без випікання з основою з печива.</p>
+            </div>
+            <div class="calculator-box">
+                <label for="newDiameter">Діаметр вашої форми (см):</label>
+                <input type="number" id="newDiameter" value="22" min="10" max="40">
+                <button class="btn-secondary" onclick="recalculate()">Перерахувати</button>
+                <p><small>Базовий діаметр рецепту: <span id="oldDiameter">20</span> см</small></p>
+            </div>
+            <div class="recipe-body">
+                <div class="ingredients">
+                 <h3>Інгредієнти</h3>
+                 <ul id="ingredientList">
+                    <li data-base-amount="300">Печиво: <span class="amount">300</span>г</li>
+                    <li data-base-amount="100">Вершкове масло: <span class="amount">500</span>г</li>
+                    <li data-base-amount="500">Кисломолочний сир або крем-сир: <span class="amount">500</span>г</li>
+                 </ul>
+                </div>
+                <div class="instructions">
+                    <h3> Приготування</h3>
+                    <ol>
+                        <li>Подрібніть печиво в крихту за допомогою скалки чи блендера та змішайте з розтопленим маслом</li>
+                        <li>Викладіть масу у форму та плотно утрамбуйте.</li>
+                        <li>Збийте крем-сир чи кисломолочний сир і викладіть зверху. Охолодіть і прикрасьте ягодами.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <script>
+            function openModal() {
+            document.getElementById('recipeModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('recipeModal').style.display = 'none';
+        }
+
+        function recalculate() {
+            const oldD = parseFloat(document.getElementById('oldDiameter').innerText);
+            const newD = parseFloat(document.getElementById('newDiameter').value);
+            const coefficient = Math.pow((newD / oldD), 2); // Формула: (D_new / D_old)^2
+
+            const items = document.querySelectorAll('#ingredientList li');
+            items.forEach(item => {
+                const baseAmount = parseFloat(item.getAttribute('data-base-amount'));
+                const newAmount = Math.round(baseAmount * coefficient); // New = Old * Coef
+                item.querySelector('.amount').innerText = newAmount;
+            });
+        }
+    </script>
+    </body>
+</html>
