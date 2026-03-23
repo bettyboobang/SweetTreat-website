@@ -5,6 +5,10 @@
     --border-color: #C8D4E5;
 
 }
+.instructions {
+    font-family: 'Chewy', cursive;
+    letter-spacing: 1px;
+}
 
 body {
     font-family:'Cookie', 'Chewy', cursive;
@@ -169,14 +173,15 @@ body {
 }
 
 .instructions ol li::marker {
-    font-size: 22px;
+    font-size: 20px;
     color: var(--primary-color);
-    font-weight: bold;
+    font-weight: cursive;
 }
 
 .instructions ol li {
     color: var(--text-color);
     margin-bottom: 10px;
+    line-height: 1.3;
 }
 
 .calculator-box {/*калькулятор*/

@@ -31,14 +31,22 @@ function openModal(recipe) {//функція для відкривання мо�
     recipe.ingredients.forEach(ing => {
         const li = document.createElement('li');
         li.setAttribute('data-base-amount', ing.amount);
-        li.innerHTML = `${ing.product_name}: <span class="amount">${ing.amount}</span>${ing. measurenement_unit}`;
+        li.innerHTML = `${ing.product_name}: <span class="amount">${ing.amount}</span> ${ing.measurement_unit}`;
         ul.appendChild(li);
     });
-    //заповнення інструкції, я ще не вирішила чи зробити кроками чи залишити текстом як є зараз
-    modal.querySelector('.instructions').innerHTML = `
+    //заповнення інструкції, я ще не вирішила чи зробити кроками чи залишити текстом як є зараз(та всьо вже кроки зробила)
+   const stepsArray = recipe.instructions.split(/\d+\.\s*/).filter(step => step.trim() !== '');
+
+let stepsHTML = '<ol>';
+stepsArray.forEach(step => {
+    stepsHTML += `<li>${step.trim()}</li>`;
+});
+stepsHTML += '</ol>';
+
+modal.querySelector('.instructions').innerHTML = `
     <h3>Приготування</h3>
-    <p>${recipe.instructions}</p>
-    `;
+    ${stepsHTML}
+`;
     document.getElementById('newDiameter').value = recipe.base_diameter;//скидаємо значення калькулятор ана базове
     modal.style.display = 'flex';
 }
