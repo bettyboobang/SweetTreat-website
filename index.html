@@ -33,7 +33,7 @@
             <div class="modal-content">
                 <span class="close-btn" onclick="closeModal()">&times;</span>
             <div class="modal-header">
-                <div class="modal-image-placeholder">Велике фото десерту</div>
+               <img class="modal-image-placeholder" id="modalImage" src="" alt="Фото десерту" style="object-fit: cover; width: 100%;">
                 <h2>Ягідний Чізкейк</h2>
                 <p>Сирковий десерт без випікання з основою з печива.</p>
             </div>
@@ -62,27 +62,7 @@
                     </ol>
                 </div>
             </div> </div>
-        <script>
-            function openModal() {
-            document.getElementById('recipeModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('recipeModal').style.display = 'none';
-        }
-
-        function recalculate() {
-            const oldD = parseFloat(document.getElementById('oldDiameter').innerText);
-            const newD = parseFloat(document.getElementById('newDiameter').value);
-            const coefficient = Math.pow((newD / oldD), 2); // Формула: (D_new / D_old)^2
-
-            const items = document.querySelectorAll('#ingredientList li');
-            items.forEach(item => {
-                const baseAmount = parseFloat(item.getAttribute('data-base-amount'));
-                const newAmount = Math.round(baseAmount * coefficient); // New = Old * Coef
-                item.querySelector('.amount').innerText = newAmount;
-            });
-        }
-    </script>
+            <script src="data.js"></script>
+            <script src="script.js"></script>
     </body>
 </html>
