@@ -262,6 +262,88 @@ body {
     gap: 20px;
 }
 
+.menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+.menu-btn:hover {
+    transform: scale(1.1);
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -400px; /* Ховаємо за екраном */
+    width: 350px;
+    max-width: 90vw; /* Щоб на телефонах не вилазило за екран */
+    height: 100vh;
+    background-color: #fff; /* Колір фону меню */
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto; /* Дозволяємо прокрутку, якщо форма довга */
+    display: flex;
+    flex-direction: column;
+}
+.side-menu.active {
+    left: 0;
+}
+
+/* Шапка меню та кнопка закриття */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #eee;
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 36px;
+    cursor: pointer;
+    color: #a5231c;
+}
+
+/* Вміст меню */
+.menu-content {
+    padding: 20px;
+}
+
+.horizontal-filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Дозволяє переноситись на новий рядок, якщо не влазять */
+    gap: 10px;
+}
+
+/* Розділювач */
+.menu-divider {
+    border: none;
+    border-top: 2px dashed #ccc;
+    margin: 30px 0;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+}
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* Форма зворотного зв'язку */
 .contact-section {
     background: white;

@@ -52,6 +52,32 @@ document.addEventListener('DOMContentLoaded', () => {
     //коли картки існують, підключаємо пошук і фільтри
     initSearchAndFilters();
 });
+// Знаходимо всі потрібні елементи
+const menuBtn = document.getElementById('menu-btn');
+const closeMenuBtn = document.getElementById('close-menu-btn');
+const sideMenu = document.getElementById('side-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+
+//Функція для відкриття меню
+function openMenu() {
+    sideMenu.classList.add('active');
+    menuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Забороняємо прокрутку головного сайту
+}
+
+//Функція для закриття меню
+function closeMenu() {
+    sideMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = ''; // Повертаємо прокрутку
+}
+
+//Вішаємо події на кліки
+menuBtn.addEventListener('click', openMenu);
+closeMenuBtn.addEventListener('click', closeMenu);
+
+//Закриття меню при кліку на темний фон позаду
+menuOverlay.addEventListener('click', closeMenu);
 
 function initSearchAndFilters() {
     const searchInput = document.querySelector('.search-bar input');
