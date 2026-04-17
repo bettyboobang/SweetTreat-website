@@ -1,16 +1,24 @@
 import mysql.connector
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def generate_data():
     try:
         db = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="ama18#Hq", # Твій пароль
-            database="sweet_treat_db"
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
         )
         cursor = db.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM recipes")
+        cursor.execute("""
+            SELECT r.*, c.name AS category_name 
+            FROM recipes r
+            LEFT JOIN categories c ON r.category_id = c.category_id
+        """)
         recipes = cursor.fetchall()
         
         for recipe in recipes:
