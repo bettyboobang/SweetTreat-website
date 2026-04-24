@@ -1,16 +1,17 @@
+// Функція відмальовки
 function renderRecipes(recipes) {
     const grid = document.querySelector('.recipe-grid');
-    grid.innerHTML = ''; //очистка сітки перед завантаженням
+    grid.innerHTML = ''; // очистка сітки перед завантаженням
     
     recipes.forEach(recipe => {
-        const article = document.createElement('article'); //створюємо картку
+        const article = document.createElement('article');
         article.className = 'card';
-        //етикетка з категорією
+        // Тепер тут буде правильна назва категорії
         article.setAttribute('data-category', recipe.category_name);
-        article.onclick = () => openModal(recipe); //при кліку відкриваємо модалку
+        article.onclick = () => openModal(recipe); 
         
         article.innerHTML = `
-            <img class="card-image-placeholder" src="${recipe.photo_url}" alt="${recipe.dessert_name}" style="object-fit: cover; width: 100%; border-radius: 5px; margin-bottom: 15px;">
+            <img class="card-image-placeholder" src="${recipe.photo_url}" alt="${recipe.dessert_name}" style="object-fit: cover; width: 100%; height: 150px; border-radius: 5px; margin-bottom: 15px;">
             <h3 class="card-title" style="margin-top: 0;">${recipe.dessert_name}</h3>
             <button class="btn-primary">Дивитись рецепт</button>
         `;
@@ -18,95 +19,101 @@ function renderRecipes(recipes) {
     });
 }
 
-//знаходимо головний контейнер для карток
-const recipeGrid = document.querySelector('.recipe-grid');
+// Вся логіка запуску сторінки
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Ініціалізація EmailJS
+    emailjs.init('Kq29wxOqOkavrp2lv');
 
-//функція для відмальовки всіх карток
-function renderCards(recipes) {
-    //очищаємо контейнер перед заповненням
-    recipeGrid.innerHTML = '';
-
-    //проходимося по кожному рецепту з масиву recipesData
-    recipes.forEach(recipe => {
-        const card = document.createElement('article');
-        card.className = 'card';
+    // 2. Запит даних з нашого сервера
+    try {
+        const response = await fetch('http://127.0.0.1:3000/api/recipes');
+        if (!response.ok) throw new Error('Помилка мережі');
+        const recipesData = await response.json();
         
-        //вішаємо подію кліку: при натисканні передаємо ID рецепта в модалку
-        card.onclick = () => openModal(recipe.recipe_id);
-        const recipeName = recipe.dessert_name || recipe.name || "Назва безіменна";
+        renderRecipes(recipesData);
+        initSearchAndFilters();
+    } catch (error) {
+        console.error('Помилка завантаження рецептів:', error);
+        document.querySelector('.recipe-grid').innerHTML = '<h3 style="text-align: center; width: 100%;">Не вдалося завантажити рецепти. Перевірте, чи запущено сервер.</h3>';
+    }
 
-        //заповнюємо картку HTML-розміткою
-        card.innerHTML = `
-            <div class="card-image-placeholder">Фото</div>
-            <h3 class="card-title">${recipeName}</h3>
-            <button class="btn-primary">Дивитись рецепт</button>
-        `;
+    // 3. Підключення форми EmailJS
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            
+            const btn = this.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Відправляємо...';
 
-        //додаємо готову картку в сітку на сторінці
-        recipeGrid.appendChild(card);
-    });
-}
-document.addEventListener('DOMContentLoaded', () => {
-    //спочатку відмальовуємо картки
-    renderRecipes(recipesData);
-    //коли картки існують, підключаємо пошук і фільтри
-    initSearchAndFilters();
+            emailjs.sendForm('service_qrq5knw', 'template_u0yck7e', this)
+                .then(() => {
+                    btn.innerText = 'Успішно відправлено! ✨';
+                    btn.style.backgroundColor = '#4CAF50'; 
+                    this.reset(); 
+                    
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.style.backgroundColor = ''; 
+                    }, 3000);
+                }, (error) => {
+                    console.error('Помилка відправки:', error);
+                    btn.innerText = 'Сталася помилка :(';
+                    btn.style.backgroundColor = 'gray';
+                });
+        });
+    }
 });
-// Знаходимо всі потрібні елементи
+
+// Знаходимо всі потрібні елементи меню
 const menuBtn = document.getElementById('menu-btn');
 const closeMenuBtn = document.getElementById('close-menu-btn');
 const sideMenu = document.getElementById('side-menu');
 const menuOverlay = document.getElementById('menu-overlay');
 
-//Функція для відкриття меню
 function openMenu() {
     sideMenu.classList.add('active');
     menuOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Забороняємо прокрутку головного сайту
+    document.body.style.overflow = 'hidden'; 
 }
 
-//Функція для закриття меню
 function closeMenu() {
     sideMenu.classList.remove('active');
     menuOverlay.classList.remove('active');
-    document.body.style.overflow = ''; // Повертаємо прокрутку
+    document.body.style.overflow = ''; 
 }
 
-//Вішаємо події на кліки
 menuBtn.addEventListener('click', openMenu);
 closeMenuBtn.addEventListener('click', closeMenu);
-
-//Закриття меню при кліку на темний фон позаду
 menuOverlay.addEventListener('click', closeMenu);
 
 function initSearchAndFilters() {
     const searchInput = document.querySelector('.search-bar input');
     const filterTags = document.querySelectorAll('.tag');
-    
-    //шукаємо картки, коли вони вже створені
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll('.recipe-grid .card');
 
-    //логіка пошуку
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase().trim();
+    // Логіка пошукового рядка
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = (e.target.value || '').toLowerCase().trim();
 
-        cards.forEach(card => {
-            const cardText = card.innerText.toLowerCase(); //беремо текст картки
-            
-            if (cardText.includes(searchTerm)) {
-                card.style.display = 'flex'; //показати
-            } else {
-                card.style.display = 'none'; //сховати
-            }
+            cards.forEach(card => {
+                const cardText = (card.innerText || '').toLowerCase(); 
+                
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = 'flex'; 
+                } else {
+                    card.style.display = 'none'; 
+                }
+            });
         });
-    });
+    }
 
-    //логіка кнопок фільтрів
+    // Логіка кнопок-фільтрів
     filterTags.forEach(tag => {
         tag.addEventListener('click', () => {
-            //забираємо стиль активної кнопки у всіх
             filterTags.forEach(t => t.classList.remove('active')); 
-            //даємо стиль активної кнопки тій, на яку клікнули
             tag.classList.add('active'); 
             const filterValue = tag.innerText.trim();
 
@@ -116,8 +123,7 @@ function initSearchAndFilters() {
                     return;
                 }
                 
-                //читаємо категорію з невидимої етикетки
-                const cardCategory = card.getAttribute('data-category');
+                const cardCategory = card.getAttribute('data-category') || '';
                 
                 if (cardCategory === filterValue) {
                     card.style.display = 'flex';
@@ -129,53 +135,56 @@ function initSearchAndFilters() {
     });
 }
 
-function openModal(recipe) {
-    const modal = document.getElementById('recipeModal');
-    document.getElementById('modalImage').src = recipe.photo_url; 
-    modal.querySelector('h2').innerText = recipe.dessert_name;
-    modal.querySelector('.modal-header p').innerText = recipe.description;
-    modal.querySelector('#oldDiameter').innerText = recipe.base_diameter;
+async function openModal(recipe) {
+    try {
+        const response = await fetch(`http://127.0.0.1:3000/api/recipes/${recipe.recipe_id}`);
+        const fullRecipe = await response.json();
 
-    //заповнення інгредієнтів
-    const ul = document.getElementById('ingredientList');
-    ul.innerHTML = ''; 
-    recipe.ingredients.forEach(ing => {
-        const li = document.createElement('li');
-        li.setAttribute('data-base-amount', ing.amount);
-        li.innerHTML = `${ing.product_name}: <span class="amount">${ing.amount}</span> ${ing.measurement_unit}`;
-        ul.appendChild(li);
-    });
+        const modal = document.getElementById('recipeModal');
+        document.getElementById('modalImage').src = fullRecipe.photo_url; 
+        modal.querySelector('h2').innerText = fullRecipe.dessert_name;
+        modal.querySelector('.modal-header p').innerText = fullRecipe.description;
+        modal.querySelector('#oldDiameter').innerText = fullRecipe.base_diameter;
 
-    //заповнення інструкції кроками
-    const stepsArray = recipe.instructions.split(/\d+\.\s*/).filter(step => step.trim() !== '');
-    let stepsHTML = '<ol>';
-    stepsArray.forEach(step => {
-        stepsHTML += `<li>${step.trim()}</li>`;
-    });
-    stepsHTML += '</ol>';
+        const ul = document.getElementById('ingredientList');
+        ul.innerHTML = ''; 
+        fullRecipe.ingredients.forEach(ing => {
+            const li = document.createElement('li');
+            li.setAttribute('data-base-amount', ing.amount);
+            li.innerHTML = `${ing.product_name}: <span class="amount">${ing.amount}</span> ${ing.measurement_unit}`;
+            ul.appendChild(li);
+        });
 
-    modal.querySelector('.instructions').innerHTML = `
-        <h3>Приготування</h3>
-        ${stepsHTML}
-    `;
-    
-    //скидаємо значення калькулятора на базове
-    document.getElementById('newDiameter').value = recipe.base_diameter; 
-    modal.style.display = 'flex';
+        const stepsArray = fullRecipe.instructions.split(/\d+\.\s*/).filter(step => step.trim() !== '');
+        let stepsHTML = '<ol>';
+        stepsArray.forEach(step => {
+            stepsHTML += `<li>${step.trim()}</li>`;
+        });
+        stepsHTML += '</ol>';
+
+        modal.querySelector('.instructions').innerHTML = `
+            <h3>Приготування</h3>
+            ${stepsHTML}
+        `;
+        
+        document.getElementById('newDiameter').value = fullRecipe.base_diameter; 
+        modal.style.display = 'flex';
+    } catch (error) {
+        console.error('Помилка при відкритті рецепту:', error);
+    }
 }
 
 function closeModal() {
     document.getElementById('recipeModal').style.display = 'none';
 }
 
-function recalculate() { //калькулятор
+function recalculate() { 
     const oldD = parseFloat(document.getElementById('oldDiameter').innerText);
     const newD = parseFloat(document.getElementById('newDiameter').value);
     
-    //якщо користувач ввів щось не те (наприклад, стер цифру), зупиняємо функцію
     if (isNaN(newD) || newD <= 0) return; 
 
-    const coefficient = Math.pow((newD/oldD), 2); //формула
+    const coefficient = Math.pow((newD/oldD), 2); 
     const items = document.querySelectorAll('#ingredientList li');
     
     items.forEach(item => {
@@ -184,40 +193,3 @@ function recalculate() { //калькулятор
         item.querySelector('.amount').innerText = newAmount;
     });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    //ініціалізація EmailJS 
-    emailjs.init('Kq29wxOqOkavrp2lv');
-
-    const contactForm = document.getElementById('contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault(); //зупиняємо перезавантаження сторінки
-            
-            const btn = this.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = 'Відправляємо...';
-
-            //відправка даних форми
-            emailjs.sendForm('service_qrq5knw', 'template_u0yck7e', this)
-                .then(() => {
-                    //якщо успішно
-                    btn.innerText = 'Успішно відправлено! ✨';
-                    btn.style.backgroundColor = '#4CAF50'; 
-                    this.reset(); //очищаємо форму
-                    
-                    //повертаємо кнопку в початковий стан через 3 секунди
-                    setTimeout(() => {
-                        btn.innerText = originalText;
-                        btn.style.backgroundColor = ''; 
-                    }, 3000);
-                }, (error) => {
-                    //якщо помилка
-                    console.error('Помилка відправки:', error);
-                    btn.innerText = 'Сталася помилка :(';
-                    btn.style.backgroundColor = 'gray';
-                });
-        });
-    }
-});
