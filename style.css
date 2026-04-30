@@ -225,9 +225,10 @@ body {
 }
 
 .instructions ol li::marker {
-    font-size: 20px;
+    font-size: 24px;
     color: var(--primary-color);
-    font-weight: cursive;
+    font-family: 'Cookie', cursive; 
+    font-weight: bold;
 }
 
 .instructions ol li {
@@ -252,9 +253,10 @@ body {
   color: var(--text-color);
 }
 #oldDiameter {
-  font-size: 24px;     
-  font-weight: oblique;
-  color: #7961a7;        
+    font-size: 24px;     
+    font-style: oblique; 
+    font-weight: bold; 
+    color: #7961a7;        
 }
 
 .calculator-box input {
@@ -328,7 +330,7 @@ body {
 .close-btn {
     background: none;
     border: none;
-    font-size: 36px;
+    font-size: 48px;
     cursor: pointer;
     color: #a5231c;
 }
@@ -409,44 +411,246 @@ body {
     border-color: var(--primary-color);
     box-shadow: 0 2px 8px rgba(165, 35, 28, 0.1);
 }
+#menu-login-btn {
+    display: block;
+    background-color: #C8D4E5;
+    color: #2C3F70;
+    border: 2px solid #b52a2a; /* Бордова рамка */
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: inherit;
+    border-radius: 25px; /* Сильно заокруглені кути (у формі пігулки) */
+    cursor: pointer;
+    text-align: center;
+    width: 80%;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+#menu-login-btn:hover {
+    background-color: #b52a2a; /* При наведенні заповнюється кольором */
+    color: #ffffff; /* Текст стає білим */
+}
+#authModal .modal-content {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 30px; 
+    border-radius: 12px; 
+}
+#auth-form input {
+    width: 100%;
+    padding: 15px; 
+    font-size: 16px; 
+    margin-bottom: 20px; 
+    box-sizing: border-box;
+}
+#auth-submit-btn {
+    width: 100%;
+    padding: 15px; 
+    font-size: 18px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+#authModal .close-btn {
+    font-size: 48px;
+    font-weight: bold;
+    color: #b52a2a;
+    cursor: pointer; 
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+#addRecipeModal .modal-content {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border: 2px solid var(--primary-color);
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+#addRecipeModal h2 {
+    font-family: 'Chewy', cursive; 
+    text-align: center;
+    color: var(--text-color);
+    font-size: 32px; 
+    margin-bottom: 25px;
+    letter-spacing: 1px; 
+}
+#addRecipeModal input,
+#addRecipeModal textarea {
+    width: 100%;
+    padding: 12px 15px;
+    font-family: 'Cookie', cursive;
+    font-size: 18px; 
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 8px; 
+    margin-bottom: 18px; 
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+#addRecipeModal input:focus,
+#addRecipeModal textarea:focus {
+    border-color: #B22222;
+    box-shadow: 0 0 5px rgba(178, 34, 34, 0.2); 
+    outline: none;
+}
+#add-recipe-form button[type="submit"] {
+    background-color: #A5231C !important;
+    color: white;
+    font-family: 'Chewy', cursive;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+#add-recipe-form button[type="submit"]:hover {
+    background-color: #8B1A1A !important;
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(139, 26, 26, 0.3);
+}
+#add-recipe-form button[type="submit"]:active {
+    transform: translateY(0);
+}
+#addRecipeModal .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    color: #A5231C; 
+    cursor: pointer;
+    transition: color 0.3s;
+}
+#admin-add-recipe-btn {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    font-family: 'Chewy', cursive; 
+    font-size: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+#admin-add-recipe-btn:hover {
+    background-color: #8B1A1A !important;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(139, 26, 26, 0.3);
+}
+.favorite-btn-svg {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #7961a7;
+    transition: all 0.3s ease;
+    display: flex; /*ідеально по центру*/
+    align-items: center;
+}
+.favorite-btn-svg svg {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.favorite-btn-svg:hover svg {
+    transform: scale(1.15);
+    color: #8B1A1A; 
+}
+
+.favorite-btn-svg.saved svg {
+    fill: #B22222; 
+    color: #B22222; 
+    animation: heartBeat 0.4s ease-out; 
+}
+/*жоска анімація биття серця при додаванні в закладки*/
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+.top-buttons-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap; 
+}
+.top-btn {
+    font-family: 'Chewy', cursive; 
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.top-btn-fill {
+    background-color: var(--primary-color); 
+    color: white;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 8px rgba(165, 35, 28, 0.2);
+}
+.top-btn-fill:hover {
+    background-color: #8B1A1A; /* Трохи темнішає при наведенні */
+    border-color: #8B1A1A;
+    transform: translateY(-3px); /* Легко підстрибує */
+    box-shadow: 0 6px 15px rgba(139, 26, 26, 0.4);
+}
+.top-btn-outline {
+    background-color: white; 
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.top-btn-outline:hover {
+    background-color: var(--primary-color); /* Заливається кольором при наведенні */
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(165, 35, 28, 0.3);
+}
+.menu-nav-btn {
+    display: inline-block;
+    background-color: #C8D4E5; 
+    color: #2C3F70 !important; 
+    font-family: 'Chewy', cursive; 
+    font-size: 18px;
+    padding: 6px 18px;
+    border: 2px solid #2C3F70; 
+    border-radius: 25px; 
+    text-decoration: none; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.menu-nav-btn:hover {
+    background-color: #8089D2;
+    color: #C8D4E5 !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(44, 63, 112, 0.3);
+}
 
 @media (max-width: 768px) {
-    /*перебудовуємо шапку: елементи стають один під одним */
-    .header {
-        flex-direction: column; 
-        padding: 15px;
-        gap: 15px;
-        border-radius: 0 0 20px 20px;
-    }
-
-    /*бургер-меню і логотип розкидаємо по краях */
-    .header-left {
-        width: 100%; 
-        justify-content: space-between; 
-    }
-
-    /*зменшуємо лого*/
-    .logo-image {
-        height: 90px; 
-    }
-
-    /*робимо поле пошуку гнучким */
-    .search-bar {
-        width: 100%; 
-    }
-
-    .search-bar input {
-        width: 100%;
-        box-sizing: border-box; 
-    }
-
-    /*щоб при кліку пошук не намагався збільшитися і не ламав екран */
-    .search-bar input:focus {
-        width: 100%; 
-    }
-    
-    /*сітка рецептів */
-    .recipe-body {
-        grid-template-columns: 1fr;
-    }
+    .header { flex-direction: column; padding: 15px; gap: 15px; border-radius: 0 0 20px 20px; }
+    .header-left { width: 100%; justify-content: space-between; }
+    .logo-image { height: 90px; }
+    .search-bar { width: 100%; }
+    .search-bar input { width: 100%; box-sizing: border-box; }
+    .search-bar input:focus { width: 100%; }
+    .recipe-body { grid-template-columns: 1fr; }
+    .top-buttons-group { justify-content: center; width: 100%; }
+    .top-btn { width: 100%; }
 }

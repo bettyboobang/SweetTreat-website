@@ -1,76 +1,99 @@
 <!DOCTYPE html>
 <html lang="uk">
-    <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Рецепти десертів</title>
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Cookie&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="style.css">
-     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    </head>
-    <body>
-        <header class="header">
-            <div class="header-left">
-                <button id="menu-btn" class="menu-btn">
-                    <svg viewBox="0 0 100 80" width="30" height="30" fill="var(--text-color, #333)">
-                        <rect width="100" height="15" rx="8"></rect>
-                        <rect y="30" width="100" height="15" rx="8"></rect>
-                        <rect y="60" width="100" height="15" rx="8"></rect>
-                    </svg>
-                </button>
-        
-                <a href="index.html" class="logo">
-                    <img src="logo.png" alt="Sweet Treat Logo" class="logo-image">
-                </a>
-            </div>
-
-            <div class="search-bar">
-                <input type="text" placeholder="Пошук рецепту...">
-            </div>
-        </header>
-        <main class="recipe-grid">
-        </main>
-
-<div id="side-menu" class="side-menu">
-    <div class="menu-header">
-        <h2>Картотека справ</h2>
-        <button id="close-menu-btn" class="close-btn">&times;</button>
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рецепти десертів</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Cookie&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button id="menu-btn" class="menu-btn">
+                <svg viewBox="0 0 100 80" width="30" height="30" fill="var(--text-color, #333)">
+                    <rect width="100" height="15" rx="8"></rect>
+                    <rect y="30" width="100" height="15" rx="8"></rect>
+                    <rect y="60" width="100" height="15" rx="8"></rect>
+                </svg>
+            </button>
     
-    <div class="menu-content">
-        <div class="filters-section">
-           <div id="categories-container" class="horizontal-filters">
-                <button class="tag active">Всі</button>
-                <button class="tag">Торти</button>
-                <button class="tag">Без цукру</button>
-                <button class="tag">Печиво</button>
-            </div>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Sweet Treat Logo" class="logo-image">
+            </a>
         </div>
 
-        <hr class="menu-divider">
+        <div class="search-bar">
+            <input type="text" placeholder="Пошук рецепту...">
+        </div>
+    </header>
+    
+    <main class="recipe-grid">
+        </main>
 
-        <section class="contact-section">
-            <h3>Маєш свій рецепт?</h3>
-            <form id="contact-form">
-                <input type="text" id="user_name" name="user_name" placeholder="Твоє ім'я" required>
-                <input type="email" id="user_email" name="user_email" placeholder="Твій Email" required>
-                <textarea id="message" name="message" placeholder="Напиши нам..." rows="4" required></textarea>
-                <button type="submit" class="btn-primary">Відправити</button>
-            </form>
-        </section>
+    <div id="side-menu" class="side-menu">
+        <div class="menu-header">
+            <h2>Картотека справ</h2>
+            <button id="close-menu-btn" class="close-btn">&times;</button>
+        </div>
+        
+        <div class="menu-content">
+            <div class="filters-section">
+               <div id="categories-container" class="horizontal-filters">
+                    <button class="tag active">Всі</button>
+                    <button class="tag">Торти</button>
+                    <button class="tag">Без цукру</button>
+                    <button class="tag">Печиво</button>
+                </div>
+            </div>
+
+            <hr class="menu-divider">
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <a href="#" id="menu-login-btn" style="font-weight: bold; font-size: 18px; text-decoration: none;">Увійти в кабінет</a>
+                    <button id="admin-add-recipe-btn" class="btn-primary" style="display: none; margin-right: 15px;">
+                        + Додати рецепт
+                    </button>
+            </div>
+           <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 15px 0;">
+                <a href="#" id="show-all-recipes" class="menu-nav-btn">Всі рецепти</a>
+                <a href="#" id="show-favorites" class="menu-nav-btn">Мої закладки</a>
+            </div>
+
+            <hr class="menu-divider">
+
+            <section class="contact-section">
+                <h3>Маєш свій рецепт?</h3>
+                <form id="contact-form">
+                    <input type="text" id="user_name" name="user_name" placeholder="Твоє ім'я" required>
+                    <input type="email" id="user_email" name="user_email" placeholder="Твій Email" required>
+                    <textarea id="message" name="message" placeholder="Напиши нам..." rows="4" required></textarea>
+                    <button type="submit" class="btn-primary">Відправити</button>
+                </form>
+            </section>
+        </div>
     </div>
-</div>
 
-<div id="menu-overlay" class="menu-overlay"></div>
-        <div id="recipeModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="menu-overlay" class="menu-overlay"></div>
+    
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <div class="modal-header">
                <img class="modal-image-placeholder" id="modalImage" src="" alt="Фото десерту" style="object-fit: cover; width: 100%;">
-                <h2>Ягідний Чізкейк</h2>
-                <p>Сирковий десерт без випікання з основою з печива.</p>
+               
+               <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px;">
+                   <button id="favorite-btn" class="favorite-btn-svg" title="Додати в закладки">
+                       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+                           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                       </svg>
+                   </button>
+                   <h2 style="margin: 0;">Ягідний Чізкейк</h2>
+               </div>
+               <p style="margin-top: 10px;">Сирковий десерт без випікання з основою з печива.</p>
             </div>
             <div class="calculator-box">
                 <label for="newDiameter">Діаметр вашої форми (см):</label>
@@ -78,15 +101,15 @@
                 <button class="btn-secondary" onclick="recalculate()">Перерахувати</button>
                 <p><small>Базовий діаметр рецепту:  <span id="oldDiameter">20</span> см</small></p>
             </div>
+            
             <div class="recipe-body">
-                </div>
                 <div class="ingredients">
-                 <h3>Інгредієнти</h3>
-                 <ul id="ingredientList">
-                    <li data-base-amount="300">Печиво: <span class="amount">300</span>г</li>
-                    <li data-base-amount="100">Вершкове масло: <span class="amount">500</span>г</li>
-                    <li data-base-amount="500">Кисломолочний сир або крем-сир: <span class="amount">500</span>г</li>
-                 </ul>
+                    <h3>Інгредієнти</h3>
+                    <ul id="ingredientList">
+                        <li data-base-amount="300">Печиво: <span class="amount">300</span>г</li>
+                        <li data-base-amount="100">Вершкове масло: <span class="amount">500</span>г</li>
+                        <li data-base-amount="500">Кисломолочний сир або крем-сир: <span class="amount">500</span>г</li>
+                    </ul>
                 </div>
                 <div class="instructions">
                     <h3> Приготування</h3>
@@ -96,7 +119,54 @@
                         <li>Збийте крем-сир чи кисломолочний сир і викладіть зверху. Охолодіть і прикрасьте ягодами.</li>
                     </ol>
                 </div>
-            </div> </div>
-            <script src="script.js"></script>
-    </body>
+            </div>
+        </div> 
+    </div>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <span class="close-btn">&times;</span>
+            <h2 id="auth-title">Увійти</h2>
+    
+            <form id="auth-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                <input type="text" id="auth-username" placeholder="Ім'я (тільки для реєстрації)" style="display: none; padding: 10px;">
+                <input type="email" id="auth-email" placeholder="Email" required style="padding: 10px;">
+                <input type="password" id="auth-password" placeholder="Пароль" required style="padding: 10px;">
+        
+                <button type="submit" class="btn-primary" id="auth-submit-btn">Увійти</button>
+            </form>
+    
+            <p style="margin-top: 15px; font-size: 14px;">
+                <span id="auth-switch-text">Немає акаунту?</span> 
+                <a href="#" id="auth-switch-link" style="color: var(--primary-color); font-weight: bold;">Зареєструватися</a>
+            </p>
+        </div>
+    </div>
+    <div id="addRecipeModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="modal-content" style="background: #fff; padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; position: relative;">
+            <span class="close-btn" id="close-add-recipe-btn" style="position: absolute; top: 15px; right: 20px; font-size: 32px; cursor: pointer;">&times;</span>
+        
+            <h2 style="text-align: center; margin-bottom: 20px;">Додати новий рецепт</h2>
+        
+            <form id="add-recipe-form" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" id="new-title" placeholder="Назва десерту" required>
+                <input type="text" id="new-category" placeholder="Категорія" required>
+                <input type="url" id="new-photo" placeholder="Посилання на фото (URL)" required>
+                <textarea id="new-desc" placeholder="Короткий опис" required style="min-height: 60px;"></textarea>
+            
+                <input type="number" id="new-diameter" placeholder="Діаметр форми в см">
+            
+                <textarea id="new-ingredients" placeholder="Інгредієнти (кожен з нового рядка)" required style="min-height: 100px;"></textarea>
+            
+                <textarea id="new-instructions" placeholder="Інструкція" required style="min-height: 120px;"></textarea>
+            
+                <button type="submit" class="btn-primary" style="margin-top: 10px;">
+                    Зберегти рецепт
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
