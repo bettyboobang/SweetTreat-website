@@ -1,10 +1,10 @@
 let currentOpenRecipeId = null; //зберігає ID відкритого рецепту
 
-function renderRecipes(recipes) {
+function renderRecipes(recipes) {//отримуємо контейнер сітки рецептів
     const grid = document.querySelector('.recipe-grid');
     if (!grid) return;
     
-    grid.innerHTML = ''; // очистка сітки перед завантаженням
+    grid.innerHTML = ''; //очистка сітки перед завантаженням
     recipes.forEach(recipe => {
         const article = document.createElement('article');
         article.className = 'card';
@@ -19,15 +19,15 @@ function renderRecipes(recipes) {
         grid.appendChild(article);
     });
 }
-document.addEventListener('DOMContentLoaded', async () => {
-    // 2.1 Ініціалізуємо авторизацію та перевіряємо, чи ми увійшли
+document.addEventListener('DOMContentLoaded', async () => {//коли сторінка повністю завантажиться, виконаємо цей код
+    //ініціалізуємо авторизацію та перевіряємо, чи ми увійшли
     initAuth();
     updateAuthUI();
 
-    // 2.2 Ініціалізація EmailJS
+    //ініціалізація EmailJS
     emailjs.init('Kq29wxOqOkavrp2lv');
 
-    // 2.3 Запит даних з нашого сервера
+    //запит даних з сервера
     try {
         const response = await fetch('http://127.0.0.1:3000/api/recipes');
         if (!response.ok) throw new Error('Помилка мережі');
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const showFavoritesBtn = document.getElementById('show-favorites');
     const showAllBtn = document.getElementById('show-all-recipes');
 
-    if (showFavoritesBtn) {
+    if (showFavoritesBtn) {//кнопка "Мої закладки"
         showFavoritesBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             const token = localStorage.getItem('token');
@@ -55,37 +55,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/api/favorites', {
+            const response = await fetch('http://127.0.0.1:3000/api/favorites', {//запитуємо у сервера рецепти, які юзер зберіг у закладки
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
             if (response.ok) {
-                const favoriteRecipes = await response.json();
+                const favoriteRecipes = await response.json();//отримуємо масив улюблених рецептів
                 
-                // Очищаємо заголовок (опціонально, щоб юзер розумів, де він)
+                //очищаємо заголовок
                 const gridTitle = document.querySelector('.section-title');
                 if (gridTitle) gridTitle.innerText = 'Мої улюблені рецепти';
 
                 if (favoriteRecipes.length === 0) {
                     document.querySelector('.recipe-grid').innerHTML = 
-                        '<p style="text-align: center; width: 100%;">У вас поки немає збережених рецептів. Час щось додати! 🍓</p>';
+                        '<p style="text-align: center; width: 100%;">У вас поки немає збережених рецептів. Час щось додати!</p>';
                 } else {
-                    renderRecipes(favoriteRecipes); // Перевикористовуємо твою функцію!
+                    renderRecipes(favoriteRecipes); //перевикористовуємо функцію
                 }
                 
-                closeMenu(); // Закриваємо меню після вибору
+                closeMenu(); //закриваємо меню після вибору
             }
         } catch (error) {
             console.error('Помилка завантаження закладок:', error);
         }
     });
 }
-// Кнопка "Всі рецепти", щоб повернутися назад
+//кнопка "Всі рецепти", щоб повернутися назад
 if (showAllBtn) {
     showAllBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:3000/api/recipes');
+            const response = await fetch('http://127.0.0.1:3000/api/recipes');//запитуємо всі рецепти знову
             const allRecipes = await response.json();
             
             const gridTitle = document.querySelector('.section-title');
@@ -99,7 +99,7 @@ if (showAllBtn) {
     });
 }
 
-    // 2.4 Підключення форми EmailJS
+    //підключення форми EmailJS
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(event) {
@@ -150,12 +150,12 @@ function initSearchAndFilters() {
     const searchInput = document.querySelector('.search-bar input');
     const filterTags = document.querySelectorAll('.tag');
     
-    // Логіка пошукового рядка
+    //логіка пошукового рядка
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = (e.target.value || '').toLowerCase().trim();
             
-            // ОСЬ ТУТ: Знаходимо АКТУАЛЬНІ картки щоразу при введенні тексту
+            //знаходимо актуальні картки щоразу при введенні тексту
             const currentCards = document.querySelectorAll('.recipe-grid .card');
 
             currentCards.forEach(card => {
@@ -165,7 +165,7 @@ function initSearchAndFilters() {
         });
     }
     
-    // Логіка кнопок-фільтрів
+    //логіка кнопок-фільтрів
     filterTags.forEach(tag => {
         tag.addEventListener('click', () => {
             filterTags.forEach(t => t.classList.remove('active')); 
@@ -186,7 +186,7 @@ function initSearchAndFilters() {
 }
 window.openModal = async function(recipe) {
     try {
-        //Запам'ятовуємо ID рецепту, який відкрили
+        //запам'ятовуємо ID рецепту, який відкрили
         currentOpenRecipeId = recipe.recipe_id;
 
         const response = await fetch(`http://127.0.0.1:3000/api/recipes/${recipe.recipe_id}`);
@@ -223,12 +223,12 @@ window.openModal = async function(recipe) {
         const token = localStorage.getItem('token');
         
         if (favBtn) {
-            favBtn.classList.remove('saved'); //Скидаємо колір за замовчуванням
+            favBtn.classList.remove('saved'); //скидаємо колір за замовчуванням
             favBtn.title = 'Додати в закладки';
             
             if (token) {
                 try {
-                    //Питаємо у сервера, чи є цей рецепт у нашого юзера в закладках
+                    //питаємо у сервера, чи є цей рецепт у нашого юзера в закладках
                     const favRes = await fetch(`http://127.0.0.1:3000/api/favorites/check/${currentOpenRecipeId}`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
@@ -258,9 +258,9 @@ const recipeModal = document.getElementById('recipeModal');
 
 //додаємо слідкувача за кліками по всьому вікну
 window.addEventListener('click', (event) => {
-    //якщо елемент, по якому ми клікнули (event.target),є самим затемненим фоном, а не білим контейнером всередині
+    //якщо елемент, по якому ми клікнули,є самим затемненим фоном, а не білим контейнером всередині
     if (event.target === recipeModal) {
-        closeModal(); //викликаємо твою існуючу функцію закриття
+        closeModal(); //викликаємо існуючу функцію закриття
     }
 });
 
@@ -283,7 +283,6 @@ function initAuth() {
     let isLoginMode = true; 
     
     const authModal = document.getElementById('authModal');
-    // Підтримуємо обидві кнопки, якщо ти колись захочеш повернути її в шапку
     const headerLoginBtn = document.getElementById('login-btn');
     const menuLoginBtn = document.getElementById('menu-login-btn');
     
@@ -296,7 +295,7 @@ function initAuth() {
     const emailInput = document.getElementById('auth-email');
     const passwordInput = document.getElementById('auth-password');
 
-    // Якщо модалки немає — не ламаємо код
+    //якщо модалки немає — не ламаємо код
     if (!authModal || !authSwitchLink) return;
 
     function openAuthModal(e) {
@@ -307,14 +306,14 @@ function initAuth() {
         } else {
             authModal.style.display = 'flex';
             setLoginMode();
-            closeMenu(); // закриваємо меню, щоб модалка була на передньому плані
+            closeMenu(); //закриваємо меню, щоб модалка була на передньому плані
         }
     }
 
     if (headerLoginBtn) headerLoginBtn.addEventListener('click', openAuthModal);
     if (menuLoginBtn) menuLoginBtn.addEventListener('click', openAuthModal);
 
-    // Хрестик закриття вікна авторизації
+    //хрестик закриття вікна авторизації
     const closeAuthBtn = authModal.querySelector('.close-btn');
     if (closeAuthBtn) {
         closeAuthBtn.addEventListener('click', () => {
@@ -323,16 +322,16 @@ function initAuth() {
         });
     }
 
-    authSwitchLink.addEventListener('click', (e) => {
+    authSwitchLink.addEventListener('click', (e) => {//запобігаємо переходу за посиланням
         e.preventDefault();
-        // Просто перевіряємо, який режим зараз, і вмикаємо протилежний
-        if (isLoginMode) {
+        //просто перевіряємо, який режим зараз, і вмикаємо протилежний
+        if (isLoginMode) {//якщо зараз режим логіну, перемикаємо на реєстрацію
             setRegisterMode();
-        } else {
+        } else {//якщо зараз режим реєстрації, перемикаємо на логін
             setLoginMode();
         }
     });
-    function setLoginMode() {
+    function setLoginMode() {//налаштовуємо вікно для логіну
         isLoginMode = true;
         authTitle.innerText = 'Увійти';
         usernameInput.style.display = 'none';
@@ -341,7 +340,7 @@ function initAuth() {
         authSwitchText.innerText = 'Немає акаунту?';
         authSwitchLink.innerText = 'Зареєструватися';
     }
-    function setRegisterMode() {
+    function setRegisterMode() {//налаштовуємо вікно для реєстрації
         isLoginMode = false;
         authTitle.innerText = 'Реєстрація';
         usernameInput.style.display = 'block';
@@ -351,14 +350,14 @@ function initAuth() {
         authSwitchLink.innerText = 'Увійти';
     }
 
-    authForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); 
-        
+    authForm.addEventListener('submit', async (e) => {//запобігаємо стандартній відправці форми
+        e.preventDefault(); //
+    
         const email = emailInput.value;
         const password = passwordInput.value;
         const username = usernameInput.value;
         
-        const endpoint = isLoginMode ? '/api/login' : '/api/register';
+        const endpoint = isLoginMode ? '/api/login' : '/api/register';//визначаємо, куди відправляти дані в залежності від режиму
         const payload = isLoginMode ? { email, password } : { username, email, password };
 
         try {
@@ -375,14 +374,14 @@ function initAuth() {
                 return;
             }
 
-            if (isLoginMode) {
+            if (isLoginMode) {//якщо це був логін, зберігаємо токен та ім'я користувача в localStorage
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('username', data.username);
                 alert(`Вітаємо, ${data.username}!`);
                 authModal.style.display = 'none';
                 authForm.reset();
                 updateAuthUI(); 
-            } else {
+            } else {//якщо це була реєстрація, просто показуємо повідомлення та перемикаємо на логін
                 alert(data.message);
                 setLoginMode(); 
             }
@@ -393,16 +392,16 @@ function initAuth() {
     });
 }
 
-// Глобальні функції для оновлення кнопок та виходу
+//глобальні функції для оновлення кнопок та виходу
 window.updateAuthUI = function() {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
     
     const headerLoginBtn = document.getElementById('login-btn');
     const menuLoginBtn = document.getElementById('menu-login-btn');
-    const adminAddBtn = document.getElementById('admin-add-recipe-btn'); // Знаходимо кнопку адміна
+    const adminAddBtn = document.getElementById('admin-add-recipe-btn'); //знаходимо кнопку адміна
     
-    if (token && username) {
+    if (token && username) {//якщо токен є, вважаємо, що користувач авторизований
         if (headerLoginBtn) {
             headerLoginBtn.innerText = `Вийти (${username})`;
             headerLoginBtn.classList.replace('btn-secondary', 'btn-primary'); 
@@ -412,9 +411,9 @@ window.updateAuthUI = function() {
         }
         
         if (adminAddBtn && username === 'Детектив Шерлок Холмс') {
-            adminAddBtn.style.display = 'inline-block'; // Показуємо зелену кнопку
+            adminAddBtn.style.display = 'inline-block'; //показуємо кнопку лише для цього користувача
         } else if (adminAddBtn) {
-            adminAddBtn.style.display = 'none'; // Ховаємо від звичайних юзерів
+            adminAddBtn.style.display = 'none'; //ховаємо від звичайних юзерів
         }
 
     } else {
@@ -426,7 +425,7 @@ window.updateAuthUI = function() {
             menuLoginBtn.innerText = 'Увійти в кабінет';
         }
         if (adminAddBtn) {
-            adminAddBtn.style.display = 'none'; // Ховаємо, якщо ніхто не авторизований
+            adminAddBtn.style.display = 'none'; //ховаємо, якщо ніхто не авторизований
         }
     }
 }
@@ -444,7 +443,7 @@ const addRecipeBtn = document.getElementById('admin-add-recipe-btn');
 const addRecipeModal = document.getElementById('addRecipeModal');
 const closeAddRecipeBtn = document.getElementById('close-add-recipe-btn');
 
-//відкриваємо вікно при кліку на зелену кнопку
+//відкриваємо вікно при кліку на кнопку
 if (addRecipeBtn) {
     addRecipeBtn.addEventListener('click', () => {
         addRecipeModal.style.display = 'flex';
@@ -477,23 +476,23 @@ if (favBtn) {
             return;
         }
 
-        //Якщо з якихось причин ID рецепту немає
+        //якщо з якихось причин ID рецепту немає
         if (!currentOpenRecipeId) return;
         const isSaved = favBtn.classList.contains('saved');
         const method = isSaved ? 'DELETE' : 'POST'; 
 
         try {
-            //Відправляємо запит на сервер
+            //відправляємо запит на сервер
             const response = await fetch(`http://127.0.0.1:3000/api/favorites/${currentOpenRecipeId}`, {
                 method: method,
                 headers: {
-                    'Authorization': `Bearer ${token}`, //Обов'язково передаємо токен-перепустку
+                    'Authorization': `Bearer ${token}`, //обов'язково передаємо токен-перепустку
                     'Content-Type': 'application/json'
                 }
             });
 
             if (response.ok) {
-                //Якщо сервер успішно все зберіг, змінюємо вигляд кнопки
+                //якщо сервер успішно все зберіг, змінюємо вигляд кнопки
                 favBtn.classList.toggle('saved');
                 favBtn.title = isSaved ? 'Додати в закладки' : 'Видалити з закладок';
             } else {

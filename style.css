@@ -1,16 +1,16 @@
-:root {
+:root {/*загальні кольори для всього сайту, щоб було легко змінювати тему в майбутньому*/
     --bg-color: #45252569; 
     --text-color: #2C3F70;
     --primary-color: #A5231C;
     --border-color: #C8D4E5;
     --surface-color: #E8EBED; 
 }
-.instructions {
+.instructions {/*стиль для інструкцій при відкритті рецепта*/
     font-family: 'Chewy', cursive;
     letter-spacing: 1px;
 }
 
-body {
+body {/*загальні стилі для всього сайту*/
     font-family:'Cookie', 'Chewy', cursive;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -25,35 +25,35 @@ body {
     margin-bottom: 20px;
 }
 
-.logo-image {
+.logo-image {/*стиль для логотипу*/
     height: 140px;
     width: auto;  
     display: block;
     transition: transform 0.3s ease; 
 }
 
-.logo-image:hover {
+.logo-image:hover {/*легкий ефект при наведенні на логотип*/
     transform: scale(1.05); 
 }
 
-.logo-link {
+.logo-link {/*стиль для посилання на головну сторінку*/
     text-decoration: none;
     display: flex;
     align-items: center;
 }
 
-.search-bar input { 
+.search-bar input { /*стиль для поля пошуку*/
     padding: 12px 20px; 
     padding-left: 40px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a5231c' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a5231c' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");/*вбудоване зображення іконки лупи у вигляді SVG, закодованого в URL-форматі*/
+    background-repeat: no-repeat;/*запобігає повторенню зображення іконки в полі пошуку*/
     background-position: 12px center;
     background-size: 18px 18px;
     border-radius: 25px;
     border: 2px solid var(--border-color); 
     width: 300px; 
     font-size: 16px;
-    outline: none; 
+    outline: none; /*забираємо стандартну рамку при фокусі*/
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
@@ -65,26 +65,26 @@ body {
     width: 320px;
 }
 
-.header-left {
-    display: flex;
+.header-left {/*стиль для лівої частини шапки, де логотип і пошук*/
+    display: flex;/*використовуємо флексбокс для розташування логотипу і пошуку в один ряд*/
     align-items: center; 
     gap: 20px; 
 }
-.filters { margin-bottom: 30px; }
+.filters { margin-bottom: 30px; }/*стиль для блоку з фільтрами категорій*/*
 
 
 
-.tag { 
+.tag { /*стиль для тегів категорій*/
     padding: 10px 18px; 
     border: 1px solid var(--text-color); 
     border-radius: 20px; background: white; 
     cursor: pointer; 
-    margin-right: 10px;
+    margin-right: 10px;/*відстань між тегами*/
     font-size: 14px;
     transition: 0.3s;
 }
 
-.tag.active { 
+.tag.active { /*стиль для активного тегу категорії*/
     background: var(--primary-color); 
     color: white; 
     border-color: var(--primary-color);
@@ -92,15 +92,15 @@ body {
     box-shadow: 0 4px 10px rgba(165, 35, 28, 0.3); 
 }
 
-.tag:hover {    
+.tag:hover { /*стиль при наведенні на тег категорії*/  
     background: var(--primary-color);    
     color: white;
     border-color: var(--primary-color);
 }
 
-.recipe-grid {
+.recipe-grid {/*стиль для сітки з рецептами на головній сторінці*/
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));/*автоматично підлаштовує кількість колонок в залежності від ширини екрану, мінімальна ширина колонки 250px, а максимальна - 1fr (одна частина доступного простору)*/
     gap: 20px;
 }
 
@@ -116,21 +116,21 @@ body {
     transition: 0.3s;
 }
 
-.card:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.card:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }/*стиль при наведенні на картку рецепта*/
 
-.card-image-placeholder { height: 150px; background: #e0e0e0; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+.card-image-placeholder { height: 150px; background: #e0e0e0; border-radius: 5px; display: flex; align-items: center; justify-content: center; }/*стиль для зображення рецепта, якщо його немає - показує сірий прямокутник*/
 
-.btn-primary { 
+.btn-primary { /*стиль для основної кнопки, наприклад, "Додати рецепт"*/
     background: var(--primary-color); 
     color: white; 
     border: none; 
     padding: 10px 20px; 
     border-radius: 5px; 
     cursor: pointer; 
-    margin-top: auto;
+    margin-top: auto;/*відсуваємо кнопку вниз, щоб вона була внизу картки*/
     width: 100%;
 }
-.modal {
+.modal {/*стиль для модального вікна з рецептом*/
   display: none;
   position: fixed;
   top: 0;
@@ -138,12 +138,12 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.5);
-  justify-content: center;
+  justify-content: center;/*використовуємо флексбокс для центрування вмісту модального вікна по горизонталі*/
   align-items: center;
   z-index: 1000;
 }
 
-.modal-content {
+.modal-content {/*стиль для вмісту модального вікна, де показується рецепт*/
   background: white;
   width: 90%;
   max-width: 600px;
@@ -155,7 +155,7 @@ body {
   overflow-y: auto;
 }
 
-.modal-header h2 {
+.modal-header h2 { /*стиль для заголовка рецепта в модальному вікні*/
     text-align: center;
     font-size: 32px;
     font-weight: bold;
@@ -163,7 +163,7 @@ body {
     margin-bottom: 10px;
 }
 
-.modal-header p {
+.modal-header p { /*стиль для опису рецепта в модальному вікні*/
     text-align: center;
     font-size: 20px;
     color: #8089D2;
@@ -171,7 +171,7 @@ body {
     margin-top: 0;
 }
 
-.close-btn {
+.close-btn { /*стиль для кнопки закриття модального вікна*/
   position: absolute;
   top: 1px;
   right: 1px;
@@ -180,11 +180,11 @@ body {
   color: var(--primary-color);  
   cursor: pointer;
 }
-.close-btn:hover {
+.close-btn:hover {/*стиль при наведенні на кнопку закриття модального вікна*/
   color: #7a1814;
 }
 
-.modal-image-placeholder { 
+.modal-image-placeholder { /*стиль для зображення рецепта в модальному вікні, якщо його немає - показує сірий прямокутник*/
     height: 250px; 
     background: #e0e0e0; 
     border-radius: 10px; 
@@ -195,43 +195,44 @@ body {
 }
 
 
-.ingredients .amount {
+.ingredients .amount {/*стиль для кількості інгредієнтів у рецепті*/
     font-size: 20px;
     font-weight: bold;
     color: var(--text-color);
 }
 
-.ingredients ul {
+.ingredients ul {/*стиль для списку інгредієнтів у рецепті*/
   list-style-type: none;  
   padding-left: 0;    
 }
 
 
-.ingredients ul li::before {
+.ingredients ul li::before {/*стиль для маркера перед кожним інгредієнтом у списку інгредієнтів рецепта*/
     content: "✦ ";
     color: var(--primary-color);
     font-weight: bold;
     margin-right: 6px;
 }
 
-.ingredients ul li {
-  font-size: 18px;
-  margin-bottom: 8px;
+.ingredients ul li {/*стиль для кожного інгредієнта у списку інгредієнтів рецепта*/
+    color: var(--text-color);
+   font-size: 18px;
+   margin-bottom: 8px;
 }
 
-.instructions ol {
+.instructions ol {/*стиль для нумерованого списку інструкцій у рецепті*/
     font-size: 18px;
     margin-left: 25px;
 }
 
-.instructions ol li::marker {
+.instructions ol li::marker {/*стиль для маркера перед кожною інструкцією у нумерованому списку інструкцій рецепта*/
     font-size: 24px;
     color: var(--primary-color);
     font-family: 'Cookie', cursive; 
     font-weight: bold;
 }
 
-.instructions ol li {
+.instructions ol li {/*стиль для кожної інструкції у нумерованому списку інструкцій рецепта*/
     color: var(--text-color);
     margin-bottom: 10px;
     line-height: 1.3;
@@ -247,19 +248,19 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 
 }
-.calculator-box label {
+.calculator-box label {/*стиль для підписів до полів калькулятора*/
   font-size: 18px;
   font-weight: bold;
   color: var(--text-color);
 }
-#oldDiameter {
+#oldDiameter {/*стиль для поля з діаметром старої форми у калькуляторі*/
     font-size: 24px;     
     font-style: oblique; 
     font-weight: bold; 
     color: #7961a7;        
 }
 
-.calculator-box input {
+.calculator-box input {/*стиль для полів введення у калькуляторі*/
     padding: 10px;
     width: 70px;
     font-size: 16px;
@@ -268,12 +269,12 @@ body {
     text-align: center;
 }
 
-.calculator-box small {
+.calculator-box small {/*стиль для підказки під полем з діаметром старої форми у калькуляторі*/
     font-size: 16px;   
     font-weight: bold;  
     color: var(--text-color); 
 }
-.btn-secondary {
+.btn-secondary {/*стиль для вторинної кнопки, наприклад, "Зберегти рецепт у закладки"*/
     background: var(--primary-color);
     color: white;
     border: none;
@@ -281,53 +282,53 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
-.btn-secondary:hover {background: #7A1814;}
+.btn-secondary:hover {background: #7A1814;}/*стиль при наведенні на вторинну кнопку*/
 
-.recipe-body {
+.recipe-body {/*стиль для основного вмісту рецепта в модальному вікні, де інгредієнти та інструкції розташовані поруч*/
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 20px;
 }
 
-.menu-btn {
+.menu-btn {/*стиль для кнопки відкриття бічного меню*/
     background: none;
     border: none;
     cursor: pointer;
     padding: 10px;
-    transition: transform 0.2s;
+    transition: transform 0.2s;/*легкий ефект при наведенні на кнопку відкриття бічного меню*/
 }
-.menu-btn:hover {
+.menu-btn:hover { /*стиль при наведенні на кнопку відкриття бічного меню*/
     transform: scale(1.1);
 }
 
-.side-menu {
+.side-menu {/*стиль для бічного меню з фільтрами та формою зворотного зв'язку*/
     position: fixed;
     top: 0;
-    left: -400px; /* Ховаємо за екраном */
+    left: -400px; /*ховаємо за екраном */
     width: 350px;
-    max-width: 90vw; /* Щоб на телефонах не вилазило за екран */
+    max-width: 90vw; /*щоб на телефонах не вилазило за екран */
     height: 100vh;
-    background-color: #C8D4E5; /* Колір фону меню */
+    background-color: #C8D4E5; /*колір фону меню */
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow-y: auto; /* Дозволяємо прокрутку, якщо форма довга */
+    overflow-y: auto; /*дозволяємо прокрутку, якщо форма довга */
     display: flex;
     flex-direction: column;
 }
-.side-menu.active {
+.side-menu.active {/*коли меню активне - показуємо його*/
     left: 0;
 }
 
-/* Шапка меню та кнопка закриття */
+/*шапка меню та кнопка закриття */
 .menu-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;/*розташовуємо заголовок зліва, а кнопку закриття - справа*/
     align-items: center;
-    padding: 20px;
+    padding: 20px;/*відступи всередині шапки меню*/
     border-bottom: 2px solid #eee;
 }
-.close-btn {
+.close-btn {/*стиль для кнопки закриття бічного меню*/
     background: none;
     border: none;
     font-size: 48px;
@@ -335,43 +336,43 @@ body {
     color: #a5231c;
 }
 
-/* Вміст меню */
+/*вміст меню */
 .menu-content {
     padding: 20px;
 }
 
-.horizontal-filters {
+.horizontal-filters {/*стиль для горизонтального блоку з фільтрами категорій всередині бічного меню*/
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; /* Дозволяє переноситись на новий рядок, якщо не влазять */
+    flex-direction: row;/*розташовуємо фільтри в один ряд*/
+    flex-wrap: wrap; /*дозволяє переноситись на новий рядок, якщо не влазять */
     gap: 10px;
 }
 
-/* Розділювач */
+/*розділювач */
 .menu-divider {
     border: none;
-    border-top: 2px dashed #8089D2;
+    border-top: 2px dashed #8089D2;/*стиль для розділювача між фільтрами та формою зворотного зв'язку в бічному меню*/
     margin: 30px 0;
 }
 
-.menu-overlay {
+.menu-overlay {/*стиль для напівпрозорого фону, який з'являється при відкритті бічного меню, щоб затемнити основний контент і сфокусувати увагу на меню*/
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100vh;/*займає весь екран*/
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.4s;
+    opacity: 0;/*початково невидимий*/
+    visibility: hidden;/*запобігає взаємодії з елементами під ним, коли невидимий*/
+    transition: 0.4s;/*плавний перехід для появи та зникнення фону при відкритті та закритті меню*/
 }
-.menu-overlay.active {
+.menu-overlay.active {/*коли меню активне - показуємо напівпрозорий фон*/
     opacity: 1;
     visibility: visible;
 }
 
-/* Форма зворотного зв'язку */
+/*форма зворотного зв'язку */
 .contact-section {
     background: #E8EBED;
     padding: 30px;
@@ -382,86 +383,86 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.contact-section h2 {
+.contact-section h2 {/*стиль для заголовка форми зворотного зв'язку в бічному меню*/
     color: var(--text-color);
     font-size: 32px;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-#contact-form {
+#contact-form {/*стиль для самої форми зворотного зв'язку в бічному меню*/
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: column; /*розташовуємо поля форми в один стовпець*/
+    gap: 15px;/*відстань між полями форми*/
     max-width: 500px;
     margin: 0 auto;
 }
 
-#contact-form input, #contact-form textarea {
+#contact-form input, #contact-form textarea {/*стиль для полів введення та текстової області у формі зворотного зв'язку в бічному меню*/
     padding: 12px 15px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 8px;/*заокруглені краї полів форми*/
     font-size: 18px;
-    outline: none;
+    outline: none;/*забираємо стандартну рамку при фокусі*/
     transition: all 0.3s ease;
-    font-family: inherit; /* Успадкує твій гарний шрифт */
+    font-family: inherit; /*спадкуємо шрифт від батьківського елемента для узгодженості стилю*/
 }
 
-#contact-form input:focus, #contact-form textarea:focus {
+#contact-form input:focus, #contact-form textarea:focus {/*стиль при фокусі на полях введення та текстовій області у формі зворотного зв'язку в бічному меню*/
     border-color: var(--primary-color);
     box-shadow: 0 2px 8px rgba(165, 35, 28, 0.1);
 }
-#menu-login-btn {
+#menu-login-btn {/*стиль для кнопки "Увійти" в бічному меню*/
     display: block;
     background-color: #C8D4E5;
     color: #2C3F70;
-    border: 2px solid #b52a2a; /* Бордова рамка */
+    border: 2px solid #b52a2a; 
     padding: 10px 24px;
     font-size: 16px;
     font-weight: bold;
     font-family: inherit;
-    border-radius: 25px; /* Сильно заокруглені кути (у формі пігулки) */
+    border-radius: 25px; /*заокруглені краї кнопки*/
     cursor: pointer;
     text-align: center;
     width: 80%;
-    margin: 20px auto;
+    margin: 20px auto;/*центруємо кнопку в бічному меню*/
     transition: all 0.3s ease;
-    text-decoration: none;
+    text-decoration: none;/*забираємо підкреслення у посилання, якщо це посилання*/
 }
 
-#menu-login-btn:hover {
-    background-color: #b52a2a; /* При наведенні заповнюється кольором */
-    color: #ffffff; /* Текст стає білим */
+#menu-login-btn:hover {/*стиль при наведенні на кнопку "Увійти" в бічному меню*/
+    background-color: #b52a2a; /*при наведенні заповнюється кольором */
+    color: #ffffff; /*текст стає білим */
 }
-#authModal .modal-content {
+#authModal .modal-content {/*стиль для вмісту модального вікна авторизації*/
     width: 100%;
     max-width: 450px;
     padding: 40px 30px; 
     border-radius: 12px; 
 }
-#auth-form input {
+#auth-form input {/*стиль для полів введення у формі авторизації*/
     width: 100%;
-    padding: 15px; 
+    padding: 15px; /*зручні відступи всередині полів введення*/
     font-size: 16px; 
     margin-bottom: 20px; 
-    box-sizing: border-box;
+    box-sizing: border-box;/*щоб падінги не збільшували загальну ширину поля*/
 }
-#auth-submit-btn {
+#auth-submit-btn {/*стиль для кнопки відправки форми авторизації*/
     width: 100%;
     padding: 15px; 
     font-size: 18px;
-    border-radius: 8px;
+    border-radius: 8px;/*заокруглені краї кнопки*/
     margin-top: 10px;
 }
-#authModal .close-btn {
+#authModal .close-btn {/*стиль для кнопки закриття модального вікна авторизації*/
     font-size: 48px;
     font-weight: bold;
     color: #b52a2a;
-    cursor: pointer; 
+    cursor: pointer;/*зробимо кнопку закриття більш помітною, щоб користувачі легко її знаходили*/
     padding: 5px 10px;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease;/*легкий ефект при наведенні на кнопку закриття модального вікна авторизації*/
 }
-#addRecipeModal .modal-content {
+#addRecipeModal .modal-content {/*стиль для вмісту модального вікна додавання рецепта*/
     background: #fff;
     padding: 40px;
     border-radius: 15px; 
@@ -471,18 +472,18 @@ body {
     max-width: 500px;
     width: 90%;
     max-height: 90vh;
-    overflow-y: auto;
+    overflow-y: auto;/*дозволяємо прокрутку, якщо форма довга*/
 }
-#addRecipeModal h2 {
+#addRecipeModal h2 {/*стиль для заголовка модального вікна додавання рецепта*/
     font-family: 'Chewy', cursive; 
     text-align: center;
     color: var(--text-color);
     font-size: 32px; 
     margin-bottom: 25px;
-    letter-spacing: 1px; 
+    letter-spacing: 1px; /*легкий відступ між літерами для більш стильного вигляду заголовка*/
 }
 #addRecipeModal input,
-#addRecipeModal textarea {
+#addRecipeModal textarea {/*стиль для полів введення та текстової області у формі додавання рецепта в модальному вікні*/
     width: 100%;
     padding: 12px 15px;
     font-family: 'Cookie', cursive;
@@ -492,15 +493,15 @@ body {
     border-radius: 8px; 
     margin-bottom: 18px; 
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease;/*плавний перехід для ефекту при фокусі на полях введення та текстовій області у формі додавання рецепта в модальному вікні*/
 }
 #addRecipeModal input:focus,
-#addRecipeModal textarea:focus {
+#addRecipeModal textarea:focus {/*стиль при фокусі на полях введення та текстовій області у формі додавання рецепта в модальному вікні*/
     border-color: #B22222;
     box-shadow: 0 0 5px rgba(178, 34, 34, 0.2); 
-    outline: none;
+    outline: none;/*забираємо стандартну рамку при фокусі*/
 }
-#add-recipe-form button[type="submit"] {
+#add-recipe-form button[type="submit"] {/*стиль для кнопки відправки форми додавання рецепта в модальному вікні*/
     background-color: #A5231C !important;
     color: white;
     font-family: 'Chewy', cursive;
@@ -515,24 +516,24 @@ body {
     transition: all 0.3s ease;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
-#add-recipe-form button[type="submit"]:hover {
+#add-recipe-form button[type="submit"]:hover {/*стиль при наведенні на кнопку відправки форми додавання рецепта в модальному вікні*/
     background-color: #8B1A1A !important;
-    transform: translateY(-2px); 
+    transform: translateY(-2px); /*легкий ефект підняття при наведенні на кнопку відправки форми додавання рецепта в модальному вікні*/
     box-shadow: 0 5px 15px rgba(139, 26, 26, 0.3);
 }
-#add-recipe-form button[type="submit"]:active {
-    transform: translateY(0);
+#add-recipe-form button[type="submit"]:active {/*стиль при натисканні на кнопку відправки форми додавання рецепта в модальному вікні*/
+    transform: translateY(0);/*повертаємо кнопку в початкове положення при натисканні на неї*/
 }
-#addRecipeModal .close-btn {
+#addRecipeModal .close-btn {/*стиль для кнопки закриття модального вікна додавання рецепта*/
     position: absolute;
     top: 15px;
     right: 20px;
     font-size: 32px;
     color: #A5231C; 
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.3s;/*легкий ефект при наведенні на кнопку закриття модального вікна додавання рецепта*/
 }
-#admin-add-recipe-btn {
+#admin-add-recipe-btn {/*стиль для кнопки "Додати рецепт" в адмін панелі*/
     background-color: var(--primary-color) !important;
     color: white !important;
     font-family: 'Chewy', cursive; 
@@ -544,12 +545,12 @@ body {
     transition: all 0.3s ease;
     cursor: pointer;
 }
-#admin-add-recipe-btn:hover {
+#admin-add-recipe-btn:hover {/*стиль при наведенні на кнопку "Додати рецепт" в адмін панелі*/
     background-color: #8B1A1A !important;
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(139, 26, 26, 0.3);
 }
-.favorite-btn-svg {
+.favorite-btn-svg {/*стиль для кнопки "Зберегти рецепт у закладки" у вигляді SVG іконки серця*/
     background: transparent;
     border: none;
     cursor: pointer;
@@ -559,21 +560,21 @@ body {
     display: flex; /*ідеально по центру*/
     align-items: center;
 }
-.favorite-btn-svg svg {
+.favorite-btn-svg svg {/*стиль для самої SVG іконки серця в кнопці "Зберегти рецепт у закладки"*/
     width: 30px;
     height: 30px;
-    transition: transform 0.3s ease, fill 0.3s ease;
+    transition: transform 0.3s ease, fill 0.3s ease;/*плавний перехід для ефекту при наведенні та збереженні рецепта у закладки*/
 }
 
-.favorite-btn-svg:hover svg {
+.favorite-btn-svg:hover svg {/*стиль при наведенні на кнопку "Зберегти рецепт у закладки" у вигляді SVG іконки серця*/
     transform: scale(1.15);
     color: #8B1A1A; 
 }
 
-.favorite-btn-svg.saved svg {
+.favorite-btn-svg.saved svg {/*стиль для SVG іконки серця в кнопці "Зберегти рецепт у закладки", коли рецепт вже збережений у закладки*/
     fill: #B22222; 
     color: #B22222; 
-    animation: heartBeat 0.4s ease-out; 
+    animation: heartBeat 0.4s ease-out; /*запускаємо анімацію биття серця при збереженні рецепта у закладки*/
 }
 /*жоска анімація биття серця при додаванні в закладки*/
 @keyframes heartBeat {
@@ -581,47 +582,47 @@ body {
     50% { transform: scale(1.3); }
     100% { transform: scale(1); }
 }
-.top-buttons-group {
+.top-buttons-group {/*стиль для групи кнопок в шапці сайту, таких як "Додайте рецепт" та "Увійти"*/
     display: flex;
-    gap: 15px;
+    gap: 15px;/*відстань між кнопками в групі*/
     margin-bottom: 25px;
-    flex-wrap: wrap; 
+    flex-wrap: wrap; /*дозволяє кнопкам переноситись на новий рядок, якщо не влазять в один ряд на маленьких екранах*/
 }
-.top-btn {
+.top-btn {/*загальний стиль для кнопок в шапці сайту, таких як "Додайте рецепт" та "Увійти"*/
     font-family: 'Chewy', cursive; 
     font-size: 20px;
-    letter-spacing: 1px;
+    letter-spacing: 1px;/*легкий відступ між літерами для більш стильного вигляду кнопок в шапці сайту*/
     padding: 10px 25px;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
 }
-.top-btn-fill {
+.top-btn-fill {/*стиль для кнопки "Додайте рецепт" в шапці сайту*/
     background-color: var(--primary-color); 
     color: white;
     border: 2px solid var(--primary-color);
     box-shadow: 0 4px 8px rgba(165, 35, 28, 0.2);
 }
-.top-btn-fill:hover {
-    background-color: #8B1A1A; /* Трохи темнішає при наведенні */
+.top-btn-fill:hover {/*стиль при наведенні на кнопку "Додайте рецепт" в шапці сайту*/
+    background-color: #8B1A1A; /*трохи темнішає при наведенні */
     border-color: #8B1A1A;
-    transform: translateY(-3px); /* Легко підстрибує */
+    transform: translateY(-3px); /*легко підстрибує */
     box-shadow: 0 6px 15px rgba(139, 26, 26, 0.4);
 }
-.top-btn-outline {
+.top-btn-outline {/*стиль для кнопки "Увійти" в шапці сайту*/
     background-color: white; 
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
 }
 
-.top-btn-outline:hover {
-    background-color: var(--primary-color); /* Заливається кольором при наведенні */
+.top-btn-outline:hover {/*стиль при наведенні на кнопку "Увійти" в шапці сайту*/ 
+    background-color: var(--primary-color); /*заливається кольором при наведенні */
     color: white;
-    transform: translateY(-3px);
+    transform: translateY(-3px);/*легко підстрибує при наведенні на кнопку "Увійти" в шапці сайту*/
     box-shadow: 0 6px 15px rgba(165, 35, 28, 0.3);
 }
-.menu-nav-btn {
+.menu-nav-btn {/*стиль для навігаційних кнопок всередині бічного меню, таких як "Головна", "Категорії" тощо*/
     display: inline-block;
     background-color: #C8D4E5; 
     color: #2C3F70 !important; 
@@ -632,18 +633,18 @@ body {
     border-radius: 25px; 
     text-decoration: none; 
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease;/*плавний перехід для ефекту при наведенні на навігаційні кнопки всередині бічного меню*/
     text-align: center;
 }
 
-.menu-nav-btn:hover {
+.menu-nav-btn:hover {/*стиль при наведенні на навігаційні кнопки всередині бічного меню*/
     background-color: #8089D2;
     color: #C8D4E5 !important;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(44, 63, 112, 0.3);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) {/*стилі для мобільних пристроїв, щоб сайт був зручним на маленьких екранах*/
     .header { flex-direction: column; padding: 15px; gap: 15px; border-radius: 0 0 20px 20px; }
     .header-left { width: 100%; justify-content: space-between; }
     .logo-image { height: 90px; }

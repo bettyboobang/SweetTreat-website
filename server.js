@@ -50,7 +50,7 @@ app.post('/api/register', async (req, res) => {
     }
 });
 //вхід
-app.post('/api/login', (req, res) => {
+app.post('/api/login', (req, res) => {//отримуємо email та пароль з тіла запиту
     const { email, password } = req.body;
     
     const sql = 'SELECT * FROM users WHERE email = ?';
@@ -79,7 +79,7 @@ app.post('/api/login', (req, res) => {
     });
 });
 //отримати всі категорії
-app.get('/api/categories', (req, res) => {
+app.get('/api/categories', (req, res) => {//запит до бази на всі категорії
     db.query('SELECT * FROM categories', (err, results) => {
         if (err) return res.status(500).json({ error: 'Помилка завантаження категорій' });
         res.json(results);
@@ -105,7 +105,7 @@ app.get('/api/recipes/:id', (req, res) => {
     const recipeId = req.params.id;
     const sqlRecipe = 'SELECT * FROM recipes WHERE recipe_id = ?';
     
-    db.query(sqlRecipe, [recipeId], (err, recipeResults) => {
+    db.query(sqlRecipe, [recipeId], (err, recipeResults) => {//якщо помилка або рецепт не знайдено, повертаємо 404
         if (err || recipeResults.length === 0) return res.status(404).json({ error: 'Рецепт не знайдено' });
 
         const recipe = recipeResults[0];
@@ -114,61 +114,60 @@ app.get('/api/recipes/:id', (req, res) => {
             FROM recipe_composition rc
             JOIN ingredients i ON rc.ingredient_id = i.ingredient_id
             WHERE rc.recipe_id = ?
-        `;
+        `;//запит на інгредієнти для цього рецепту
 
-        db.query(sqlIngredients, [recipeId], (err, ingredientsResults) => {
+        db.query(sqlIngredients, [recipeId], (err, ingredientsResults) => {//якщо помилка при завантаженні інгредієнтів, повертаємо помилку
             if (err) return res.status(500).json({ error: 'Помилка бази даних' });
             recipe.ingredients = ingredientsResults;
             res.json(recipe);
         });
     });
 });
-const authenticateToken = (req, res, next) => {
+const authenticateToken = (req, res, next) => {//отримуємо токен з заголовка Authorization
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Беремо токен з "Bearer <token>"
-    
+    const token = authHeader && authHeader.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Потрібна авторизація' });
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) return res.status(403).json({ error: 'Токен недійсний або протермінований' });
-        req.user = user; // Зберігаємо дані юзера (id, role) з токена у req.user
-        next(); // Пропускаємо далі
+        req.user = user; //зберігаємо дані юзера (id, role) з токена у req.user
+        next(); //пропускаємо далі
     });
 };
-//Перевірити, чи рецепт у закладках
+//перевірити, чи рецепт у закладках
 app.get('/api/favorites/check/:recipeId', authenticateToken, (req, res) => {
-    const userId = req.user.id; //Беремо ID юзера з розшифрованого токена
+    const userId = req.user.id; //беремо ID юзера з розшифрованого токена
     const recipeId = req.params.recipeId;
     const sql = 'SELECT * FROM favorites WHERE user_id = ? AND recipe_id = ?';
-    db.query(sql, [userId, recipeId], (err, results) => {
+    db.query(sql, [userId, recipeId], (err, results) => {//якщо помилка при запиті до бази, повертаємо помилку
         if (err) return res.status(500).json({ error: 'Помилка БД' });
-        //Якщо є хоч один запис - повертаємо true
+        //якщо є хоч один запис - повертаємо true
         res.json({ isFavorite: results.length > 0 }); 
     });
 });
-//Додати рецепт у закладки
+//додати рецепт у закладки
 app.post('/api/favorites/:recipeId', authenticateToken, (req, res) => {
     const userId = req.user.id;
     const recipeId = req.params.recipeId;
     //не видасть помилку, якщо така закладка вже є
-    const sql = 'INSERT IGNORE INTO favorites (user_id, recipe_id) VALUES (?, ?)';
+    const sql = 'INSERT IGNORE INTO favorites (user_id, recipe_id) VALUES (?, ?)';//INSERT IGNORE - якщо така комбінація вже є, то просто не додаватиме і не видасть помилку
     db.query(sql, [userId, recipeId], (err, results) => {
         if (err) return res.status(500).json({ error: 'Помилка бази даних' });
         res.json({ message: 'Рецепт додано до закладок!' });
     });
 });
-//Видалити рецепт із закладок
+//видалити рецепт із закладок
 app.delete('/api/favorites/:recipeId', authenticateToken, (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user.id;//отримуємо ID рецепта з параметрів URL
     const recipeId = req.params.recipeId;
-    const sql = 'DELETE FROM favorites WHERE user_id = ? AND recipe_id = ?';
+    const sql = 'DELETE FROM favorites WHERE user_id = ? AND recipe_id = ?';//видаляємо запис із таблиці favorites для цього юзера і рецепта
     db.query(sql, [userId, recipeId], (err, results) => {
         if (err) return res.status(500).json({ error: 'Помилка бази даних' });
         res.json({ message: 'Рецепт видалено із закладок!' });
     });
 });
 
-// Отримати всі збережені рецепти користувача
+// отримати всі збережені рецепти користувача
 app.get('/api/favorites', authenticateToken, (req, res) => {
     const userId = req.user.id;
     const sql = `
@@ -177,7 +176,7 @@ app.get('/api/favorites', authenticateToken, (req, res) => {
         JOIN recipes r ON f.recipe_id = r.recipe_id
         JOIN categories c ON r.category_id = c.category_id
         WHERE f.user_id = ?
-    `;
+    `;//запит на всі рецепти, які юзер зберіг у закладки, разом з назвами категорій
 
     db.query(sql, [userId], (err, results) => {
         if (err) return res.status(500).json({ error: 'Помилка бази даних' });
@@ -185,6 +184,6 @@ app.get('/api/favorites', authenticateToken, (req, res) => {
     });
 });
 
-app.listen(port, () => {
+app.listen(port, () => {//сервер на вказаному порту
     console.log(`Сервер працює на http://localhost:${port}`);
 });
