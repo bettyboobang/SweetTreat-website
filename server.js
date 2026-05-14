@@ -7,24 +7,27 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-//підключення до БД
+//підключення до хмарної бд
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 3306, //додано порт
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 db.connect((err) => {
     if (err) {
         console.error('Помилка доступу до бази:', err);
         return;
     }
-    console.log('Зв\'язок з базою встановлено через секретні змінні оточення!');
+    console.log('Зв\'язок з хмарною базою встановлено!');
 });
 //реєстрація нового користувача
 app.post('/api/register', async (req, res) => {
@@ -184,6 +187,6 @@ app.get('/api/favorites', authenticateToken, (req, res) => {
     });
 });
 
-app.listen(port, () => {//сервер на вказаному порту
-    console.log(`Сервер працює на http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {//запускаємо сервер на всіх інтерфейсах, щоб був доступний ззовні (для хмарного розгортання)
+    console.log(`Сервер працює на порту ${port}`);
 });

@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {//коли сторі
 
     //запит даних з сервера
     try {
-        const response = await fetch('http://127.0.0.1:3000/api/recipes');
+        const response = await fetch(`/api/recipes`); //запит на всі рецепти
         if (!response.ok) throw new Error('Помилка мережі');
         const recipesData = await response.json();
         renderRecipes(recipesData);
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {//коли сторі
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:3000/api/favorites', {//запитуємо у сервера рецепти, які юзер зберіг у закладки
+            const response = await fetch(`/api/favorites`, {//запитуємо у сервера рецепти, які юзер зберіг у закладки
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
@@ -85,7 +85,7 @@ if (showAllBtn) {
     showAllBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:3000/api/recipes');//запитуємо всі рецепти знову
+            const response = await fetch(`/api/recipes`); //запитуємо всі рецепти знову
             const allRecipes = await response.json();
             
             const gridTitle = document.querySelector('.section-title');
@@ -189,7 +189,7 @@ window.openModal = async function(recipe) {
         //запам'ятовуємо ID рецепту, який відкрили
         currentOpenRecipeId = recipe.recipe_id;
 
-        const response = await fetch(`http://127.0.0.1:3000/api/recipes/${recipe.recipe_id}`);
+        const response = await fetch(`/api/recipes/${recipe.recipe_id}`);
         const fullRecipe = await response.json();
 
         const modal = document.getElementById('recipeModal');
@@ -229,7 +229,7 @@ window.openModal = async function(recipe) {
             if (token) {
                 try {
                     //питаємо у сервера, чи є цей рецепт у нашого юзера в закладках
-                    const favRes = await fetch(`http://127.0.0.1:3000/api/favorites/check/${currentOpenRecipeId}`, {
+                    const favRes = await fetch(`/api/favorites/check/${currentOpenRecipeId}`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
                     if (favRes.ok) {
@@ -361,7 +361,7 @@ function initAuth() {
         const payload = isLoginMode ? { email, password } : { username, email, password };
 
         try {
-            const response = await fetch(`http://127.0.0.1:3000${endpoint}`, {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -483,7 +483,7 @@ if (favBtn) {
 
         try {
             //відправляємо запит на сервер
-            const response = await fetch(`http://127.0.0.1:3000/api/favorites/${currentOpenRecipeId}`, {
+            const response = await fetch(`/api/favorites/${currentOpenRecipeId}`, {
                 method: method,
                 headers: {
                     'Authorization': `Bearer ${token}`, //обов'язково передаємо токен-перепустку
